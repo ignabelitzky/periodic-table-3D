@@ -19,7 +19,7 @@ Unlike traditional 2D periodic tables or static model, my Unity-based applicatio
 * Available on Windows
 
 ## Demo video:
-[YouTube Video](https://www.youtube.com/watch?v=-quY9CXkhcA)
+[YouTube Video](https://youtu.be/NiIifN4v_2w)
 
 ## License
 This project is licensed under the [GNU General Public License v3.0](LICENSE). You can find the full text of the license here [LICENSE](LICENSE).

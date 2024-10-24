@@ -34,21 +34,29 @@ public class UserController : MonoBehaviour
 
     private void TriggerExit()
     {
-        GameObject informationDisplay = GameObject.FindGameObjectWithTag("InformationDisplay");
-        if (informationDisplay != null)
-        {
-            informationDisplay.SetActive(false);
-        }
-        GameObject references = GameObject.FindGameObjectWithTag("References");
-        if (references != null)
-        {
-            references.SetActive(false);
-        }
         StartCoroutine(TriggerElementExplosion());
     }
 
     public IEnumerator TriggerElementExplosion()
     {
+        GameObject references = GameObject.FindGameObjectWithTag("References");
+        if (references == null)
+        {
+            Debug.LogError("References object not found!");
+            yield break;
+        }
+        references.GetComponent<Rigidbody>().isKinematic = false;
+        references.GetComponent<Rigidbody>().AddForce(Vector3.up * Random.Range(5f, 15f), ForceMode.Impulse);
+
+        GameObject informationDisplay = GameObject.FindGameObjectWithTag("InformationDisplay");
+        if (informationDisplay == null)
+        {
+            Debug.LogError("InformationDisplay object not found!");
+            yield break;
+        }
+        informationDisplay.GetComponent<Rigidbody>().isKinematic = false;
+        informationDisplay.GetComponent<Rigidbody>().AddForce(Vector3.up * Random.Range(5f, 15f), ForceMode.Impulse);
+
         GameObject[] elements = GameObject.FindGameObjectsWithTag("Element");
         foreach (GameObject element in elements)
         {

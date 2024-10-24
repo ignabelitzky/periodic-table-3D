@@ -10,6 +10,7 @@ TagManager:
   - Electron
   - Element
   - References
+  - InformationCanvas
   layers:
   - Default
   - TransparentFX

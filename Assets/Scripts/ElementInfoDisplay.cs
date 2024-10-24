@@ -13,7 +13,8 @@ public class ElementInfoDisplay : MonoBehaviour
     private TextMeshProUGUI textElementDensity;
     private TextMeshProUGUI textMeltingPoint;
     private TextMeshProUGUI textBoilingPoint;
-    public GameObject elementInformationCanvas;
+    private GameObject informationDisplay;
+    private GameObject informationCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,37 +23,49 @@ public class ElementInfoDisplay : MonoBehaviour
         {
             Debug.LogError("ElementData component not found.");
         }
-        elementInformationCanvas = GameObject.FindWithTag("InformationDisplay");
-        if (elementInformationCanvas == null)
+        informationDisplay = GameObject.FindWithTag("InformationDisplay");
+        if (informationDisplay == null)
         {
-            Debug.LogError("Canvas not found.");
+            Debug.LogError("Information Display not found.");
         }
-        textElementName = elementInformationCanvas.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
-        textElementSymbol = elementInformationCanvas.transform.Find("SymbolText").GetComponent<TextMeshProUGUI>();
-        textAtomicNumber = elementInformationCanvas.transform.Find("AtomicNumberText").GetComponent<TextMeshProUGUI>();
-        textAverageAtomicMass = elementInformationCanvas.transform.Find("AtomicMassText").GetComponent<TextMeshProUGUI>();
-        textElementCategory = elementInformationCanvas.transform.Find("CategoryText").GetComponent<TextMeshProUGUI>();
-        textElementState = elementInformationCanvas.transform.Find("StateText").GetComponent<TextMeshProUGUI>();
-        textElementDensity = elementInformationCanvas.transform.Find("DensityText").GetComponent<TextMeshProUGUI>();
-        textMeltingPoint = elementInformationCanvas.transform.Find("MeltingPointText").GetComponent<TextMeshProUGUI>();
-        textBoilingPoint = elementInformationCanvas.transform.Find("BoilingPointText").GetComponent<TextMeshProUGUI>();
+        informationCanvas = GameObject.FindWithTag("InformationCanvas");
+        if (informationCanvas == null)
+        {
+            Debug.LogError("Information Canvas not found.");
+        }
+        textElementName = informationCanvas.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
+        textElementSymbol = informationCanvas.transform.Find("SymbolText").GetComponent<TextMeshProUGUI>();
+        textAtomicNumber = informationCanvas.transform.Find("AtomicNumberText").GetComponent<TextMeshProUGUI>();
+        textAverageAtomicMass = informationCanvas.transform.Find("AtomicMassText").GetComponent<TextMeshProUGUI>();
+        textElementCategory = informationCanvas.transform.Find("CategoryText").GetComponent<TextMeshProUGUI>();
+        textElementState = informationCanvas.transform.Find("StateText").GetComponent<TextMeshProUGUI>();
+        textElementDensity = informationCanvas.transform.Find("DensityText").GetComponent<TextMeshProUGUI>();
+        textMeltingPoint = informationCanvas.transform.Find("MeltingPointText").GetComponent<TextMeshProUGUI>();
+        textBoilingPoint = informationCanvas.transform.Find("BoilingPointText").GetComponent<TextMeshProUGUI>();
     }
 
     private void OnMouseDown()
     {
         SetElementInfo();
+        SetDisplayMaterial();
     }
 
     private void SetElementInfo()
     {
         textElementName.text = elementData.ElementName;
-        textElementSymbol.text = "Symbol >> " + elementData.ElementSymbol;
-        textAtomicNumber.text = "Atomic Number >> " + elementData.AtomicNumber.ToString();
-        textAverageAtomicMass.text = "Avg. Atomic Mass >> " + elementData.AverageAtomicMass.ToString();
-        textElementCategory.text = "Category >> " + elementData.ElementCategory;
-        textElementState.text = "State >> " + elementData.ElementState;
-        textElementDensity.text = "Density >> " + elementData.ElementDensity;
-        textMeltingPoint.text = "Melting Point >> " + elementData.MeltingPoint;
-        textBoilingPoint.text = "Boiling Point >> " + elementData.BoilingPoint;
+        textElementSymbol.text = "Symbol: " + elementData.ElementSymbol;
+        textAtomicNumber.text = "Atomic Number: " + elementData.AtomicNumber.ToString();
+        textAverageAtomicMass.text = "Avg. Atomic Mass: " + elementData.AverageAtomicMass.ToString();
+        textElementCategory.text = "Category: " + elementData.ElementCategory;
+        textElementState.text = "State: " + elementData.ElementState;
+        textElementDensity.text = "Density: " + elementData.ElementDensity;
+        textMeltingPoint.text = "Melting Point: " + elementData.MeltingPoint;
+        textBoilingPoint.text = "Boiling Point: " + elementData.BoilingPoint;
+    }
+
+    private void SetDisplayMaterial()
+    {
+        elementData.SetElementMaterial(elementData.ElementCategory);
+        informationDisplay.GetComponent<Renderer>().material = elementData.elementRenderer.material;
     }
 }

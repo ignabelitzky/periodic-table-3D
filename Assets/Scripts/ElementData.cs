@@ -64,7 +64,7 @@ public class ElementData : MonoBehaviour
             case "Alkali metal":
                 elementRenderer.material = Resources.Load<Material>("Materials/AlkaliMetal");
                 break;
-            case "Alkaline-arth metal":
+            case "Alkaline-earth metal":
                 elementRenderer.material = Resources.Load<Material>("Materials/AlkalineEarthMetal");
                 break;
             case "Transition metal":

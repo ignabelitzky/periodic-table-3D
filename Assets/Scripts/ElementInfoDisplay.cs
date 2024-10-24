@@ -15,9 +15,15 @@ public class ElementInfoDisplay : MonoBehaviour
     private TextMeshProUGUI textBoilingPoint;
     private GameObject informationDisplay;
     private GameObject informationCanvas;
+    private AudioSource clickAudioSource;
     // Start is called before the first frame update
     void Start()
     {
+        clickAudioSource = GetComponent<AudioSource>();
+        if (clickAudioSource == null)
+        {
+            Debug.LogError("Audio Source not found.");
+        }
         elementData = GetComponent<ElementData>();
         if (elementData == null)
         {
@@ -48,6 +54,7 @@ public class ElementInfoDisplay : MonoBehaviour
     {
         SetElementInfo();
         SetDisplayMaterial();
+        PlayClickSound();
     }
 
     private void SetElementInfo()
@@ -67,5 +74,10 @@ public class ElementInfoDisplay : MonoBehaviour
     {
         elementData.SetElementMaterial(elementData.ElementCategory);
         informationDisplay.GetComponent<Renderer>().material = elementData.elementRenderer.material;
+    }
+
+    private void PlayClickSound()
+    {
+        clickAudioSource.Play();
     }
 }
